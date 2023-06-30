@@ -1,0 +1,171 @@
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator {
+            width: 320px;
+            padding: 20px;
+            background-color: #121212;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+
+        .result {
+            height: 60px;
+            line-height: 60px;
+            font-size: 24px;
+            text-align: right;
+            background-color: #000000;
+            border: 1px solid #333;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 0 10px;
+            user-select: none;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        .button {
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            font-size: 23px;
+            background-color: #0a0a0a;
+            border: 1px solid #333333;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            user-select: none;
+        }
+
+        .button.ac {
+            font-size: 23px;
+            background-color: #000000;
+            color: #ff453a;
+        }
+
+        .button.del {
+            font-size: 23px;
+            background-color: #000000;
+            color: #ff9f0a;
+        }
+
+        .button.operator {
+            font-size: 30px;
+            background-color: #000000;
+            color: #0a84ff;
+        }
+
+        .button.equal {
+            font-size: 30px;
+            background-color: #000000;
+            color: #32d74b;
+        }
+
+        .button:hover {
+            background-color: #555555;
+            transform: scale(1.05);
+            transition: 0.3s;
+
+        }
+        
+        .button.equal:hover {
+            background-color: #32d74b;
+            color: #ffffff;
+        }
+
+        .button.operator:hover {
+            background-color: #0a84ff;
+            color: #ffffff;
+        }
+
+        .button.ac:hover {
+            background-color: #ff453a;
+            color: #ffffff;
+        }
+
+        .button.del:hover {
+            background-color: #ff9f0a;
+            color: #ffffff;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="result" id="result" ondblclick="return false;">0</div>
+        <div class="buttons">
+            <div class="button ac" onclick="clearResult()">AC</div>
+            <div class="button" onclick="appendOperator('(')">(</div>
+            <div class="button" onclick="appendOperator(')')">)</div>
+            <div class="button operator" onclick="appendOperator('/')">÷</div>
+            <div class="button" onclick="appendNumber(7)">7</div>
+            <div class="button" onclick="appendNumber(8)">8</div>
+            <div class="button" onclick="appendNumber(9)">9</div>
+            <div class="button operator" onclick="appendOperator('*')">×</div>
+            <div class="button" onclick="appendNumber(4)">4</div>
+            <div class="button" onclick="appendNumber(5)">5</div>
+            <div class="button" onclick="appendNumber(6)">6</div>
+            <div class="button operator" onclick="appendOperator('-')">-</div>
+            <div class="button" onclick="appendNumber(1)">1</div>
+            <div class="button" onclick="appendNumber(2)">2</div>
+            <div class="button" onclick="appendNumber(3)">3</div>
+            <div class="button operator" onclick="appendOperator('+')">+</div>
+            <div class="button del" onclick="deleteLast()">&#129120;</div>
+            <div class="button" onclick="appendNumber(0)">0</div>
+            <div class="button" onclick="appendNumber('.')">.</div>
+            <div class="button equal" onclick="calculate()">=</div>
+        </div>
+    </div>
+    <script>
+        let result = document.getElementById('result');
+        let expression = '';
+
+        function clearResult() {
+            expression = '';
+            result.textContent = '0';
+        }
+
+        function deleteLast() {
+            expression = expression.slice(0, -1);
+            result.textContent = expression || '0';
+        }
+
+        function appendNumber(number) {
+            expression += number;
+            result.textContent = expression;
+        }
+
+        function appendOperator(operator) {
+            expression += operator;
+            result.textContent = expression;
+        }
+
+        function calculate() {
+            try {
+                const answer = eval(expression);
+                result.textContent = answer;
+                expression = answer.toString();
+            } catch (error) {
+                result.textContent = 'Error';
+                expression = '';
+            }
+        }
+    </script>
+</body>
+</html>
